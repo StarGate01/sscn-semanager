@@ -57,28 +57,29 @@
         public static function init_db($db)
         {
             $registrations = <<<EOD
-            CREATE TABLE IF NOT EXISTS `registrations` (
-            `id` int(11) NOT NULL AUTO_INCREMENT,
-            `creation` datetime NOT NULL DEFAULT current_timestamp(),
-            `firstname` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `lastname` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `city` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `birth` date NOT NULL,
-            `email` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
-            `newsletter` tinyint(1) NOT NULL,
-            `signature` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-            PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-            EOD;
+CREATE TABLE IF NOT EXISTS `registrations` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`creation` datetime NOT NULL DEFAULT current_timestamp(),
+`firstname` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`lastname` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`city` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`birth` date NOT NULL,
+`email` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`phone` text COLLATE utf8mb4_unicode_ci NOT NULL,
+`newsletter` tinyint(1) NOT NULL,
+`signature` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+EOD;
             return ($db->query($registrations) === true);
         }
 
         public function write_db($db)
         {
-            $stmt = $conn->prepare("INSERT INTO registrations (`firstname`, `lastname`, `address`, `city`, `birth`, `email`, `phone`, `newsletter`, `signature`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssssis", $this->firstname, $this->lastname, $this->address, $this->city, $this->birthDT->format("Y-m-d"), $this->email, $this->phone, ($this->newsletter)? 1:0, $this->signature);
+            $stmt = $db->prepare("INSERT INTO registrations (`firstname`, `lastname`, `address`, `city`, `birth`, `email`, `phone`, `newsletter`, `signature`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $newsletter_int = ($this->newsletter)? 1:0;
+            $stmt->bind_param("sssssssis", $this->firstname, $this->lastname, $this->address, $this->city, $this->birthDT->format("Y-m-d"), $this->email, $this->phone, $newsletter_int, $this->signature);
             return $stmt->execute();
         }
 

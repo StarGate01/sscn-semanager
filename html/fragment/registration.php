@@ -67,7 +67,7 @@
         <div class="mb-2 form-check">
             <input class="form-check-input" type="checkbox" name="newsletter" id="newsletter" <?php echo ($data->newsletter)? "checked":""; ?>>
             <label class="form-check-label" for="agb">
-                Ich möchte per E-Mail über zukünftige Vereinsaktionen informiert werden, und an der Verlosung des kostenlosen Surfkurses inklusive Surfschein und Unterrichtsmaterialien teilnehmen.
+                Ich möchte per E-Mail über zukünftige Vereinsaktionen informiert werden, und an der Verlosung eines kostenlosen Surfkurses und eines SUP-Kurses teilnehmen.
             </label>
         </div>
     </div>
