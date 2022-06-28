@@ -1,0 +1,45 @@
+version: '3.4'
+
+services:
+  db:
+    image: "mariadb:latest"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=GRqjVrwX5UJb8hGm120A
+      - MARIADB_AUTO_UPGRADE=1
+      - MARIADB_INITDB_SKIP_TZINFO=1
+      - MARIADB_USER=sscn
+      - MARIADB_PASSWORD=G0D4NgrMcVCmbgC1Ic8E
+      - MARIADB_DATABASE=sscn
+    volumes:
+      - ./persistent-data/db:/var/lib/mysql:rw
+    expose:
+      - "3306"
+
+  sscn-semanager:
+    build: .
+    image: stargate01/sscn-semanager
+    restart: always
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=sscn
+      - DB_PASSWORD=G0D4NgrMcVCmbgC1Ic8E
+      - DB_DATABASE=sscn
+    volumes:
+      - ./html:/var/www/html:ro
+    depends_on:
+      - db
+    ports:
+      - "9000:80"
+
+  phpmyadmin:
+    image: "phpmyadmin/phpmyadmin:5"
+    restart: always
+    environment:
+      - PMA_HOST=db
+    depends_on:
+      - db
+    ports:
+      - "9001:80"
+  
