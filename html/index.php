@@ -42,6 +42,8 @@
 
     include "./fragment/registration.php";
 
+    include "./fragment/scripts.html";
+    echo '<script src="js/index.js"></script>';
     include "./fragment/footer.html";
 
 ?>

@@ -1,8 +1,8 @@
 (function () {
     'use strict';
 
-    var canvas;
-    var signaturePad;
+    var canvas = null;
+    var signaturePad = null;
 
     function resizeCanvas() {
         var backup = signaturePad.toDataURL();
@@ -17,6 +17,7 @@
     window.addEventListener("resize", resizeCanvas);
 
     window.addEventListener('load', function () {
+
         canvas = document.querySelector("canvas");
         signaturePad = new SignaturePad(canvas);
 
@@ -29,7 +30,7 @@
                 var sigsHidden = document.getElementsByClassName('signature');
                 Array.prototype.filter.call(sigsHidden, function (inp) {
                     if (signaturePad.isEmpty()) {
-                        inp.setCustomValidity("Die Unterschrift darf icht leer sein!");
+                        inp.setCustomValidity("Die Unterschrift darf nicht leer sein!");
                         canvas.classList.add("canvas_error");
                         canvas.classList.remove("canvas_success");
                         canvas_data.value = "";
@@ -64,9 +65,9 @@
 
         signaturePad.fromDataURL(canvas_data.value);
 
-        setTimeout(function() {
+        setTimeout(function () {
             var result = document.querySelector("#result_message");
-            result.style.display = "none";
+            if (result != null) result.style.display = "none";
         }, 5000);
     }, false);
 })();
