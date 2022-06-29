@@ -1,4 +1,4 @@
-<h4>Segel-Surf-Club Neufahrn e.V. - Surfers' Weekend</h4>
+<h4>Surfers' Weekend</h4>
 <h2>Anmeldung Schnuppersurfen</h2>
 
 <form class="needs-validation" action="index.php" method="post" novalidate>
@@ -76,10 +76,10 @@
         <div class="mb-2 form-check">
             <input class="form-check-input" type="checkbox" name="agb" id="agb" required <?php echo ($data->agb)? "checked":""; ?>>
             <label class="form-check-label" for="agb">
-                Ich akzeptiere die Bestimmungen zum Datenschutz.
+                Ich akzeptiere die <a href="privacy.php" target="_blank">Bestimmungen zum Datenschutz</a>.
             </label>
             <div class="invalid-feedback">
-                Sie müssen die Bestimmungen zum Datenschutz akzeptieren um sich anzumelden.
+                Sie müssen die <a href="privacy.php" target="_blank">Bestimmungen zum Datenschutz</a> akzeptieren um sich anzumelden.
             </div>
         </div>
     </div>

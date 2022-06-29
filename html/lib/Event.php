@@ -39,22 +39,7 @@ class Event
         $this->group = $row["group"];
         $this->action = $row["action"];
     }
-    
-    public static function init_db($db)
-    {
-        $events = <<<EOD
-CREATE TABLE IF NOT EXISTS `events` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`reg_id` int(11) NOT NULL,
-`creation` datetime NOT NULL DEFAULT current_timestamp(),
-`group` int(11) NOT NULL,
-`action` tinyint(1) NOT NULL,
-PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;;
-EOD;
-        return ($db->query($events) === true);
-    }
-        
+
     public function write_db($db)
     {
         $stmt = $db->prepare("INSERT INTO events (`reg_id`, `group`, `action`) VALUES (?, ?, ?);");

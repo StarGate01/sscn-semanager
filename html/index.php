@@ -13,35 +13,27 @@ $db = DB::open();
 if($db === false)
 {
     header("HTTP/1.0 500 Internal Server Error");
-    Message::print("Es ist keine Verbindung zur Datenbank möglich!");
+    Message::print("Es ist keine Verbindung oder Initialisierung zur Datenbank möglich!");
 }
 else
 {
-    if(Registration::init_db($db) && Event::init_db($db))
+    $data = new Registration();
+    
+    if($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $data = new Registration();
+        $error = $data->parse_post($_POST);
+        if($error === false && !$data->write_db($db)) $error = "Fehler beim Schreiben der Datenbank";
         
-        if($_SERVER["REQUEST_METHOD"] == "POST")
+        if($error === false) 
         {
-            $error = $data->parse_post($_POST);
-            if($error === false && !$data->write_db($db)) $error = "Fehler beim Schreiben der Datenbank";
-            
-            if($error === false) 
-            {
-                $data->clear();
-                Message::print("Der/die Teilnehmer/in wurde erfolgreich registriert.", "success", "result_message");
-            }
-            else 
-            {
-                header("HTTP/1.0 400 Bad Request");
-                Message::print("Der/die Teilnehmer/in konnte nicht registriert werden. Grund: ".$error.".");
-            }
+            $data->clear();
+            Message::print("Der/die Teilnehmer/in wurde erfolgreich registriert.", "success", "result_message");
         }
-    }
-    else
-    {
-        header("HTTP/1.0 500 Internal Server Error");
-        Message::print("Datenbank-Tabellen konnten nicht erstellt werden!");
+        else 
+        {
+            header("HTTP/1.0 400 Bad Request");
+            Message::print("Der/die Teilnehmer/in konnte nicht registriert werden. Grund: ".$error.".");
+        }
     }
 }
 

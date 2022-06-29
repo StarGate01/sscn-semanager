@@ -39,44 +39,36 @@ echo "<h2>Registrierungen verwalten</h2>";
 if($db === false)
 {
     header("HTTP/1.0 500 Internal Server Error");
-    Message::print("Es ist keine Verbindung zur Datenbank möglich!");
+    Message::print("Es ist keine Verbindung oder Initialisierung zur Datenbank möglich!");
 }
 else
 {
-    if(Registration::init_db($db) && Event::init_db($db))
+    $result = $db->query(DB::QUERY_CORRELATE.";");
+    if($result)
     {
-        $result = $db->query("SELECT * FROM `registrations`;");
-        if($result)
+        include "./fragment/list_header.html";
+        echo "<tbody>";
+        while($row = $result->fetch_assoc())
         {
-            include "./fragment/list_header.html";
-            echo "<tbody>";
-            while($row = $result->fetch_assoc())
-            {
-                $reg = new Registration();
-                $reg->parse_db($row);
-                
-                $surf_active = (rand(0,1) == 1);
-                $sup_active = (rand(0,1) == 1);
-                
-                echo '<tr><td /><th style="white-space: nowrap;" scope="row"><span class="change_text">'.$reg->id.'</span><a class="btn change_button btn-primary" href="user.php?id='.$reg->id.'" role="button">'.$reg->id.' | <i aria-hidden="true" class="mdi mdi-information"></i></a></th>';
-                echo "<td>".$reg->firstname."</td><td>".$reg->lastname."</td><td>".$reg->creationDT->format("j.n.Y H:i")."</td><td style='white-space: nowrap;'>";
-                print_button($reg->id, 0, $surf_active, "surfing");
-                echo "</td><td style='white-space: nowrap;'>";
-                print_button($reg->id, 1, $sup_active, "bowl-mix");
-                echo "</td></tr>";
-            }
-            echo "</tbody></table>";
+            $reg = new Registration();
+            $reg->parse_db($row);
+            
+            $surf_active = ($row["e0_action_norm"] == 1);
+            $sup_active = ($row["e1_action_norm"] == 1);
+            
+            echo '<tr><td /><th style="white-space: nowrap;" scope="row"><span class="change_text">'.$reg->id.'</span><a class="btn change_button btn-primary" href="user.php?id='.$reg->id.'" role="button">'.$reg->id.' | <i aria-hidden="true" class="mdi mdi-information"></i></a></th>';
+            echo "<td>".$reg->firstname."</td><td>".$reg->lastname."</td><td>".$reg->creationDT->format("j.n.Y H:i")."</td><td style='white-space: nowrap;'>";
+            print_button($reg->id, 0, $surf_active, "surfing");
+            echo "</td><td style='white-space: nowrap;'>";
+            print_button($reg->id, 1, $sup_active, "bowl-mix");
+            echo "</td></tr>";
         }
-        else
-        {
-            header("HTTP/1.0 500 Internal Server Error");
-            Message::print("Datenbank-Tabelle für 'registrations' konnte nicht gelesen werden!");
-        }
+        echo "</tbody></table>";
     }
     else
     {
         header("HTTP/1.0 500 Internal Server Error");
-        Message::print("Datenbank-Tabellen konnten nicht erstellt werden!");
+        Message::print("Datenbank-Tabelle für 'registrations' konnte nicht gelesen werden!");
     }
 }
 

@@ -41,6 +41,10 @@ body {
     display: none !important;
 }
 
+.signature_reproduce {
+    height: 5em;
+}
+
 
 /** MDI **/
 
