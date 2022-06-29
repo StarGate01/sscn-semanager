@@ -4,6 +4,7 @@ ob_start();
 include "./lib/DB.php";
 include "./lib/Message.php";
 include "./lib/Registration.php";
+include "./lib/Event.php";
 
 include "./fragment/header.html";
 
@@ -16,7 +17,7 @@ if($db === false)
 }
 else
 {
-    if(Registration::init_db($db))
+    if(Registration::init_db($db) && Event::init_db($db))
     {
         $data = new Registration();
         
@@ -40,7 +41,7 @@ else
     else
     {
         header("HTTP/1.0 500 Internal Server Error");
-        Message::print("Datenbank-Tabelle für 'registrations' konnte nicht erstellt werden!");
+        Message::print("Datenbank-Tabellen konnten nicht erstellt werden!");
     }
 }
 
