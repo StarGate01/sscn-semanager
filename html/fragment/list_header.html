@@ -1,17 +1,12 @@
-<div id="toolbar">
-    <button id="filter1" class="btn btn-primary">Alle Anzeigen</button>
-    <button id="filter2" class="btn btn-secondary">Nur Aktive Surfkurse</button>
-    <button id="filter3" class="btn btn-secondary">Nur Aktive SUP-Kurse</button>
-</div>
-<table id="reg_rable" data-events="operateEvents" data-click-to-select="true" data-single-select="true" data-pagination="true" data-toolbar="#toolbar" data-sortable="true" data-toggle="table" data-search="true" data-show-columns="true">
+<table id="reg_rable" data-filter-control="true" data-click-to-select="true" data-single-select="true" data-pagination="true" data-sortable="true" data-toggle="table" data-search="true" data-show-columns="true">
     <thead>
         <tr>
             <th scope="col" data-field="state" data-checkbox="true" ></th>
-            <th scope="col" data-sortable="true" data-field="id" data-switchable="false">ID</th>
+            <th style='white-space: nowrap;' scope="col" data-sortable="true" data-field="id" data-switchable="false">ID</th>
             <th data-width-unit="%" data-width="50" scope="col" data-sortable="true" data-field="firstname">Vorname</th>
             <th data-width-unit="%" data-width="50" scope="col" data-sortable="true" data-field="lastname">Nachname</th>
             <th scope="col" data-sortable="true" data-field="created">Registriert am</th>
-            <th style="white-space: nowrap;" scope="col" data-sortable="true" data-field="surf">Surfkurs</th>
-            <th style="white-space: nowrap;" scope="col" data-sortable="true" data-field="sup">SUP-Kurs</th>
+            <th data-events="operateEvents" data-filter-control-placeholder="Alle" data-filter-data-collector="tableFilterStripHtml" data-filter-control="select" style="white-space: nowrap;" scope="col" data-sortable="true" data-field="surf">Surfkurs</th>
+            <th data-events="operateEvents" data-filter-control-placeholder="Alle" data-filter-data-collector="tableFilterStripHtml" data-filter-control="select" style="white-space: nowrap;" scope="col" data-sortable="true" data-field="sup">SUP-Kurs</th>
         </tr>
     </thead>
