@@ -38,8 +38,8 @@
 
     <div class="form-group">
         <div class="col-md-3 mb-2">
-            <label for="firstname">Geburtsdatum</label>
-            <input type="date" class="form-control" name="birth" id="birth" placeholder="Geburtsdatum" value="<?php echo $data->birth; ?>" required>
+            <label for="firstname">Geburtsdatum (T.M.JJJJ)</label>
+            <input type="text" class="form-control" name="birth" id="birth" placeholder="Geburtsdatum" value="<?php echo $data->birth; ?>" required>
             <div class="invalid-feedback">
                 Bitte ergänzen Sie Ihr Geburtsdatum
             </div>
@@ -49,17 +49,11 @@
     <div class="form-group row">
         <div class="col-md-6 mb-2">
             <label for="firstname">E-Mail Adresse</label>
-            <input type="email" class="form-control" name="email" id="email" placeholder="E-Mail Adresse" value="<?php echo $data->email; ?>" required>
-            <div class="invalid-feedback">
-                Bitte ergänzen Sie Ihre E-Mail Adresse
-            </div>
+            <input type="email" class="form-control" name="email" id="email" placeholder="E-Mail Adresse" value="<?php echo $data->email; ?>">
         </div>
         <div class="col-md-6 mb-2">
-            <label for="lastname">Telefonnummer</label>
-            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefonnummer" value="<?php echo $data->phone; ?>" required>
-            <div class="invalid-feedback">
-                Bitte ergänzen Sie Ihre Telefonnummer
-            </div>
+            <label for="lastname">Und / Oder Telefonnummer</label>
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Telefonnummer" value="<?php echo $data->phone; ?>">
         </div>
     </div>
 

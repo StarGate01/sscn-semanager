@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('UTC');
+
 class Registration 
 {
     
@@ -9,6 +11,7 @@ class Registration
     public $lastname;
     public $address;
     public $city;
+    public $birth;
     public $birthDT;
     public $email;
     public $phone;
@@ -44,15 +47,19 @@ class Registration
         if(isset($post["lastname"])) $this->lastname = htmlspecialchars($post["lastname"]);
         if(isset($post["address"])) $this->address = htmlspecialchars($post["address"]);
         if(isset($post["city"])) $this->city = htmlspecialchars($post["city"]);
-        if(isset($post["birth"])) $birth = htmlspecialchars($post["birth"]);
+        if(isset($post["birth"])) $this->birth = htmlspecialchars($post["birth"]);
+
         if(isset($post["email"])) $this->email = htmlspecialchars($post["email"]);
         if(isset($post["phone"])) $this->phone = htmlspecialchars($post["phone"]);
+
         $this->newsletter = (isset($post["newsletter"]));
         $this->agb = (isset($post["agb"]));
         if(isset($post["signature"])) $this->signature = htmlspecialchars($post["signature"]);
         
-        $this->birthDT = date_create_from_format('Y-m-d', $birth);
+        $this->birthDT = date_create_from_format('j.n.Y', $this->birth);
         if(!$this->birthDT) return "Ungültiges Geburtsdatum";
+
+        if(trim($this->email) == "" && trim($this->phone) == "") return "E-Mail Adresse oder Telefonnummer ist erforderlich";
         
         return false;
     }

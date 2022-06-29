@@ -1,5 +1,6 @@
 <?php
 ob_start();
+date_default_timezone_set('UTC');
 
 include "./lib/DB.php";
 include "./lib/Message.php";

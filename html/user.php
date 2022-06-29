@@ -1,5 +1,6 @@
 <?php
 ob_start();
+date_default_timezone_set('UTC');
 
 include "./lib/DB.php";
 include "./lib/Message.php";
@@ -75,7 +76,9 @@ else
                     }
                     
                     echo "<h4>".$reg->firstname." ".$reg->lastname."</h4>";
-                    echo "<p>Registiert am ".$reg->creationDT->format("j.n.Y H:i")."<br />";
+                    $dt = $reg->creationDT;
+                    $dt->setTimezone(new DateTimeZone('Europe/Berlin'));
+                    echo "<p>Registiert am ".$dt->format("j.n.Y H:i")."<br />";
                     echo "<b>Adresse:</b> ".$reg->address." in ".$reg->city."<br />";
                     echo "<b>Geburtsdatum:</b> ".$reg->birthDT->format("j.n.Y")."<br />";
                     echo "<b>Kontakt:</b> <a href='mailto:".$reg->email."'>".$reg->email."</a>, Tel. <a href='tel:".$reg->phone."'>".$reg->phone."</a><br />";
@@ -109,7 +112,9 @@ else
                                 $ev = new Event();
                                 $ev->parse_db($row);
                                 echo '<tr><th style="white-space: nowrap;" scope="row">'.$ev->id.'</th>';
-                                echo "<td>".$ev->creationDT->format("j.n.Y H:i")."</td>";
+                                $dt = $ev->creationDT;
+                                $dt->setTimezone(new DateTimeZone('Europe/Berlin'));
+                                echo "<td>".$dt->format("j.n.Y H:i")." Uhr</td>";
                                 echo "<td><i aria-hidden='true' class='mdi mdi-".(($ev->group == 0)? "surfing'></i> Surfkurs":"bowl-mix'></i> SUP-Kurs")."</td>";
                                 echo "<td><span class='".(($ev->action == 1)? "text-success'>Angemeldet":"text-danger'>Abgemeldet")."</span></td>";
                             }
@@ -117,7 +122,7 @@ else
                         }
                         else
                         {
-                            Message::print("Keine Aktionen gefunden!");
+                            Message::print("Keine Anmeldungen gefunden!");
                         }
                     }
                     else

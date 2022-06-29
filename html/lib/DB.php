@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('UTC');
+
 class DB
 {
     
@@ -36,10 +38,10 @@ EOD;
 SELECT * FROM
 (
     (
-        SELECT `id`, `e0_id`, CASE WHEN `e0_action` IS NULL THEN 0 ELSE `e0_action` END AS `e0_action_norm` FROM `registrations` AS r 
+        SELECT `id`, `e0_id`, `e0_creation`, CASE WHEN `e0_action` IS NULL THEN 0 ELSE `e0_action` END AS `e0_action_norm` FROM `registrations` AS r 
         LEFT JOIN
         (
-            SELECT e.`id` as `e0_id`, e.`action` AS `e0_action`, e.`reg_id` FROM `events` e WHERE (`reg_id`, `creation`) IN
+            SELECT e.`id` as `e0_id`, e.`action` AS `e0_action`, e.`creation` AS `e0_creation`, e.`reg_id` FROM `events` e WHERE (`reg_id`, `creation`) IN
             (
                 SELECT `reg_id`, MAX(`creation`) FROM `events` WHERE `group`=0 GROUP BY `reg_id`
             )
@@ -48,10 +50,10 @@ SELECT * FROM
     ) e0
     INNER JOIN
     (
-        SELECT `id`, `e1_id`, CASE WHEN `e1_action` IS NULL THEN 0 ELSE `e1_action` END AS `e1_action_norm` FROM `registrations` AS r 
+        SELECT `id`, `e1_id`, `e1_creation`, CASE WHEN `e1_action` IS NULL THEN 0 ELSE `e1_action` END AS `e1_action_norm` FROM `registrations` AS r 
         LEFT JOIN
         (
-            SELECT e.`id` as `e1_id`, e.`action` AS `e1_action`, e.`reg_id` FROM `events` e WHERE (`reg_id`, `creation`) IN
+            SELECT e.`id` as `e1_id`, e.`action` AS `e1_action`, e.`creation` AS `e1_creation`, e.`reg_id` FROM `events` e WHERE (`reg_id`, `creation`) IN
             (
                 SELECT `reg_id`, MAX(`creation`) FROM `events` WHERE `group`=1 GROUP BY `reg_id`
             )

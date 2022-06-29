@@ -2,7 +2,8 @@
     'use strict';
 
     window.tableFilterStripHtml = function (value) {
-        return value.match(/<span.*>(.*)<\/span>/, '')[1].trim();
+        if(/<span.*>Seit.*<\/span>/.test(value)) return "Seit";
+        else return "Unbeteiligt";
     }
 
     window.addEventListener('load', function () {
