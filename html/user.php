@@ -86,8 +86,20 @@ else
                     echo "<b>Unterschrift:</b><br /><img class='signature_reproduce' src='".$reg->signature."' /></p>";
                   
                     echo "<h3>Anmeldungen</h3>";
-                    echo "<p><i aria-hidden='true' class='mdi mdi-surfing'></i> <b>Surfkurs:</b> Aktuell <span class='text-".(($rowdata["e0_action_norm"] == 1)? "success'>angemeldet":"danger'>unbeteiligt")."</span><br />";
-                    echo "<i aria-hidden='true' class='mdi mdi-bowl-mix'></i> <b>SUP-Kurs:</b> Aktuell <span class='text-".(($rowdata["e1_action_norm"] == 1)? "success'>angemeldet":"danger'>unbeteiligt")."</span></p>";
+                    $dt0 = null;
+                    if($rowdata["e0_action_norm"] == 1)
+                    {
+                        $dt0 = date_create_from_format('Y-m-d H:i:s', $rowdata["e0_creation"]);
+                        $dt0->setTimezone(new DateTimeZone('Europe/Berlin'));
+                    }
+                    $dt1 = null;
+                    if($rowdata["e1_action_norm"] == 1)
+                    {
+                        $dt1 = date_create_from_format('Y-m-d H:i:s', $rowdata["e1_creation"]);
+                        $dt1->setTimezone(new DateTimeZone('Europe/Berlin'));
+                    }
+                    echo "<p><i aria-hidden='true' class='mdi mdi-surfing'></i> <b>Surfkurs:</b> Aktuell <span class='text-".(($rowdata["e0_action_norm"] == 1)? "success'>angemeldet seit ".$dt0->format("H:i"):"danger'>unbeteiligt")."</span><br />";
+                    echo "<i aria-hidden='true' class='mdi mdi-bowl-mix'></i> <b>SUP-Kurs:</b> Aktuell <span class='text-".(($rowdata["e1_action_norm"] == 1)? "success'>angemeldet seit ".$dt1->format("H:i"):"danger'>unbeteiligt")."</span></p>";
 
                     $stmt = $db->prepare("SELECT * FROM `events` WHERE `reg_id`=? ORDER BY `creation` DESC;");
                     $stmt->bind_param("i", $id);
