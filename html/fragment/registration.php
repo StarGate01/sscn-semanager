@@ -1,5 +1,5 @@
-<h4>Surfers' Weekend</h4>
-<h2>Anmeldung Schnuppersurfen</h2>
+<h4>Outdoor-Testival 2022</h4>
+<h2>Anmeldung</h2>
 
 <form class="needs-validation" action="index.php" method="post" novalidate>
     <div class="form-group row">
@@ -61,7 +61,7 @@
         <div class="mb-2 form-check">
             <input class="form-check-input" type="checkbox" name="newsletter" id="newsletter" <?php echo ($data->newsletter)? "checked":""; ?>>
             <label class="form-check-label" for="agb">
-                Ich möchte per E-Mail über zukünftige Vereinsaktionen informiert werden, und an der Verlosung eines kostenlosen Surfkurses und eines SUP-Kurses teilnehmen.
+                Ich möchte per E-Mail über zukünftige Vereinsaktionen informiert werden.
             </label>
         </div>
     </div>

@@ -60,7 +60,7 @@ else
             $dt = $reg->creationDT;
             $dt->setTimezone(new DateTimeZone('Europe/Berlin'));
             echo "<td>".$reg->firstname."</td><td>".$reg->lastname."</td><td>".$dt->format("j.n.Y H:i")."</td><td style='white-space: nowrap;'>";
-            print_button($reg->id, 0, ($row["e0_action_norm"] == 1), "surfing", $row["e0_creation"]);
+            print_button($reg->id, 0, ($row["e0_action_norm"] == 1), "volleyball", $row["e0_creation"]);
             echo "</td><td style='white-space: nowrap;'>";
             print_button($reg->id, 1, ($row["e1_action_norm"] == 1), "bowl-mix", $row["e1_creation"]);
             echo "</td></tr>";

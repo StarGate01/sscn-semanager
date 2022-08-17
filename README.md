@@ -3,7 +3,7 @@
 
 # sscn-semanager
 
-Segel-Surf-Club Neufahrn Verwaltungswerkzeug für das Surfers Weekend
+Segel-Surf-Club Neufahrn Verwaltungswerkzeug für das Surfers Weekend und andere Aktivitäten
 
 ## Development
 

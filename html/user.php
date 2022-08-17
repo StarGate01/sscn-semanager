@@ -98,7 +98,7 @@ else
                         $dt1 = date_create_from_format('Y-m-d H:i:s', $rowdata["e1_creation"]);
                         $dt1->setTimezone(new DateTimeZone('Europe/Berlin'));
                     }
-                    echo "<p><i aria-hidden='true' class='mdi mdi-surfing'></i> <b>Surfkurs:</b> Aktuell <span class='text-".(($rowdata["e0_action_norm"] == 1)? "success'>angemeldet seit ".$dt0->format("H:i"):"danger'>unbeteiligt")."</span><br />";
+                    echo "<p><i aria-hidden='true' class='mdi mdi-volleyball'></i> <b>SUP-Polo:</b> Aktuell <span class='text-".(($rowdata["e0_action_norm"] == 1)? "success'>angemeldet seit ".$dt0->format("H:i"):"danger'>unbeteiligt")."</span><br />";
                     echo "<i aria-hidden='true' class='mdi mdi-bowl-mix'></i> <b>SUP-Kurs:</b> Aktuell <span class='text-".(($rowdata["e1_action_norm"] == 1)? "success'>angemeldet seit ".$dt1->format("H:i"):"danger'>unbeteiligt")."</span></p>";
 
                     $stmt = $db->prepare("SELECT * FROM `events` WHERE `reg_id`=? ORDER BY `creation` DESC;");
@@ -127,7 +127,7 @@ else
                                 $dt = $ev->creationDT;
                                 $dt->setTimezone(new DateTimeZone('Europe/Berlin'));
                                 echo "<td>".$dt->format("j.n.Y H:i")." Uhr</td>";
-                                echo "<td><i aria-hidden='true' class='mdi mdi-".(($ev->group == 0)? "surfing'></i> Surfkurs":"bowl-mix'></i> SUP-Kurs")."</td>";
+                                echo "<td><i aria-hidden='true' class='mdi mdi-".(($ev->group == 0)? "volleyball'></i> SUP-Polo":"bowl-mix'></i> SUP-Kurs")."</td>";
                                 echo "<td><span class='".(($ev->action == 1)? "text-success'>Angemeldet":"text-danger'>Abgemeldet")."</span></td>";
                             }
                             echo "</tbody></table>";
